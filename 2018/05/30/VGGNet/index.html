@@ -1,0 +1,95 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>VGGNet论文笔记 | 围城</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">VGGNet论文笔记</h1><a id="logo" href="/.">围城</a><p class="description">不忘初心</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 主页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">VGGNet论文笔记</h1><div class="post-meta">May 30, 2018<span> | </span><span class="category"><a href="/categories/深度学习/">深度学习</a></span></div><a class="disqus-comment-count" data-disqus-identifier="2018/05/30/VGGNet/" href="/2018/05/30/VGGNet/#disqus_thread"></a><div class="post-content"><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>VGGNet这篇论文最主要的贡献在于从<strong>网络深度</strong>这一角度出发，对卷积神经网络进行了改进。非常详尽的评估了网络深度所带来的影响，证明了网络的深度对于性能的提升具有举足轻重的作用。而且文中训练的两个16层和19层的网络由于其强大的泛化能力，在随后得到了非常广泛的应用。VGGNet的主要特点在于：<strong>(1)网络很深；(2)卷积层中使用的卷积核很小，且都是3*3的卷积核。</strong></p>
+<h2 id="网络细节"><a href="#网络细节" class="headerlink" title="网络细节"></a>网络细节</h2><h3 id="1-Architecture"><a href="#1-Architecture" class="headerlink" title="1. Architecture"></a>1. Architecture</h3><ul>
+<li>训练网络时，输入的图像大小是224*224的(测试时则不一定，原因后面会讲到)，唯一的预处理步骤是减去均值。</li>
+<li>所有的卷积层使用的都是3*3的卷积核(对比实验中用到了1*1的卷积核，它的作用在于引入更多的非线性。最终的VGG16和VGG19都不包含1*1的卷积核，所以它的出现只是为了做对比实验，后面部分会提到)。</li>
+<li>为了使卷积后的feature map大小和卷积前相等，卷积核为3*3的卷积层的padding都设置为1。</li>
+<li>使用max pooling，但并不是所有的卷积层后面都跟着pooling层，一共只有5个max pooling层。kernel大小是2*2，步长为2，也就是说，和AlexNet不同，VGGNet使用的是不重叠的pooling。</li>
+<li>所有网络模型的最后三层都是全连接层。其中前两层都有4096个神经元，最后一层则是1000，每个代表一个分类类别。</li>
+<li>所有的隐含层的激活函数都是ReLU函数，最后一层则是softmax层。</li>
+<li>没有使用AlexNet中的LRN技术。这是因为后面的实验中证明了使用LRN对性能并没有提升作用，反而增加内存和时间消耗。<h3 id="2-Configurations"><a href="#2-Configurations" class="headerlink" title="2. Configurations"></a>2. Configurations</h3>为了评估深度对于网络性能的影响，文中设计了好几种不同深度的网络结构。最浅的网络有11层，最深的有19层，其中，所有的网络模型最后三层都是全连接层，其余都是卷积层。这几种网络模型的结构如下图：</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/9367127-74dd425a9d57feb1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="3-Discussion"><a href="#3-Discussion" class="headerlink" title="3. Discussion"></a>3. Discussion</h3><h4 id="为什么使用3-3的卷积核？"><a href="#为什么使用3-3的卷积核？" class="headerlink" title="为什么使用3*3的卷积核？"></a>为什么使用3*3的卷积核？</h4><p>3*3是能抓取局部信息的最小的尺寸。不难得到，两层3*3的卷积层便可以得到5*5的感受野，相当于一层5*5的卷积层。以此类推，三层3*3的卷积层相当于一层7*7的卷积层。<em>那么为什么不直接使用大的卷积核，而是使用多层3\</em>3的卷积层来起到类似的作用呢？原因主要有两点：*</p>
+<ul>
+<li>层数越多，非线性因素就越多，决策函数的判别力更强。</li>
+<li>虽然使用小的卷积核时，需要的层数会更多，但是需要学习的参数反而更少了，可以将层数更多、卷积核更小看作是对大的卷积核强加了正则化。比如对于卷积核大小都为3*3，通道数目都是C的三层卷积层来说，参数的数目是3*(3*3*C*C)=27*C*C；而卷积核大小为7*7，通道数目也是C的一层卷积层来说，参数的数目为7*7*C*C=49*C*C。<h4 id="1-1的卷积核有什么作用？"><a href="#1-1的卷积核有什么作用？" class="headerlink" title="1*1的卷积核有什么作用？"></a>1*1的卷积核有什么作用？</h4>在不影响卷积层的感受野的情况下，为模型引入更多的非线性。不影响感受野是显而易见的，非线性是怎么来的呢？是由于非线性激活函数的使用。<h2 id="训练和测试细节"><a href="#训练和测试细节" class="headerlink" title="训练和测试细节"></a>训练和测试细节</h2><h3 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h3></li>
+<li>batch size为256，momentum设置为0.9，权重衰减系数为0.0005。</li>
+<li>前两层全连接层使用Dropout，Dropout比例为0.5。</li>
+<li>学习率初始时为0.01，当验证集的准确率停止提高时，学习率除以10。最终学习率降低了三次以后，网络就收敛了。</li>
+<li>虽然和AlexNet相比，VGGNet的参数更多、深度更深，但是却收敛的更快。原因有两点，一是前面提到的更深的层和更小的卷积核相当于隐式的进行了正则化；二是在训练期间对某些层进行了预初始化。</li>
+<li>对于深度网络来说，网络权值的初始化十分重要。为此，论文中首先训练一个浅层的网络结构A(网络结构见上图)，训练这个浅层的网络时，随机初始化它的权重就足够得到比较好的结果。然后，<strong>当训练深层的网络时，前四层卷积层和最后的三个全连接层使用的是学习好的A网络的权重来进行初始化，而其余层则随机初始化。*</strong>这也就是上一点提到的某些层的预初始化。*(随机初始化权重时，使用的是0均值，方差0.01的正态分布；偏置则都初始化为0)。</li>
+<li>首先将图像各向同性的缩放，使得最短边缩放至S(S大于等于224)，由于要求输入是224*224大小的，所以再对缩放后的图像进行crop。至于S的取值，论文提出了两种不同的方法：<br>(1)<strong>固定的尺度</strong>，对所有的图片，S都是固定的同样的值。论文考察了S=256和S=384两种情况下分别训练得到的网络的性能。<strong>为了加速，训练S=384的网络时，使用训练好的S=256的网络来初始化权重，并且学习率更小，为0.001。</strong><br>(2)<strong>可变的尺度</strong>，设置一个范围[S<sub>min</sub>,S<sub>max</sub>]，每一张图片都从这个范围内随机选取一个数作为它的S。论文中使用的范围是[256,512]。这使得训练在一个很大范围的图像尺度之上进行。<strong>为了加速，通过微调S=384的固定尺度的网络来训练得到可变尺度的网络。</strong><h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3>在测试阶段，首先将图像各向同性的缩放，使得最短边缩放至Q。<em>注意，Q没必要一定要和S相等。</em>然后，使用两种不同的方式进行分类：<strong>dense evaluation</strong>和<strong>multi-crop evaluation</strong>，这两种方式分别借鉴于<strong>Overfeat</strong>和<strong>GoogLeNet</strong>。下面详细介绍一下这两种方式：  </li>
+</ul>
+<h4 id="1-dense-evaluation"><a href="#1-dense-evaluation" class="headerlink" title="1. dense evaluation"></a>1. dense evaluation</h4><p>它的设计非常巧妙，<strong>并不需要我们显式的在缩放后的图像上crop出224*224的图像。</strong>而是直接将缩放后的图像输入，再通过将最后的三层全连接层表达为卷积层的形式，来实现在缩放后的图像上密集crop的效果。最后将结果平均得到最终的分类结果。 </p>
+<p><em>首先来看为什么全连接层可以转变为卷积层的形式。</em>假设一个神经网路前面都是卷积层，后面跟着三层全连接层f1、f2和f3，每个全连接层神经元的个数分别为n1、n2和n3，且经过前面所有的卷积层之后，得到的是m*m的C个通道的feature map。一般来说，进入全连接层之前，我们应该首先将这个feature map展成一维向量，再于f1全连接层相连接。但是实际上，我们可以将f1层看作是卷积核大小为m*m，通道数为n1的卷积层，这样卷积后得到的输出是1*1*n1的(不加padding)，效果和全连接层一样。然后，再将f2层看作是卷积核大小为1*1，通道数为n2的卷积层；将f3层看作是卷积核大小为1*1，通道数为n3的卷积层……道理同f1层一样。  </p>
+<p><em>上面证明了可以将全连接层转变为卷积层，下面来讲一下这么做的效果，为什么能起到密集crop的效果。</em> 如下图所示(图片来自于论文Overfeat)，假设训练时网络接受的图像大小是14*14，最后输出的是它所属的类别。假设测试时缩放后的图片大小为16*16，在将全连接层转变成卷积层后  ，我们将这个缩放后的图像直接输入给网络，而不是crop出14*14的大小，可以发现，最后得到的是4个结果而不是它上面所示的1个。其实这4个结果分别相当于在缩放后的图像上crop出左上、右上、左下、右下4个14*14图像的分类结果。然后将多个位置的结果取平均作为整个图像的最终结果。相比于在缩放后的图像上crop出多个图像后再分别放入网络进行分类，这种操作省去了许多重复性的运算，所有的卷积操作只需要做一遍即可。<strong>值得注意的是，在这个例子中，相当于每滑动两个像素crop一个图像，这是因为中间有一个步长为2的2*2的pooling操作。所以有时当pooling操作较多时，这种方法可能反而没有直接多次crop得到的结果精细。</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/9367127-8070de445b5aefd0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h4 id="2-multi-crop-evaluation"><a href="#2-multi-crop-evaluation" class="headerlink" title="2. multi-crop evaluation"></a>2. multi-crop evaluation</h4><p>相当于AlexNet中所使用的crop方法的加强版。在GoogLeNet中描述的详细过程如下：将图片缩放到不同的4种尺寸(纵横比不变，GoogLeNet使用的4种尺寸为：缩放后的最短边长度分别为：256,288,320和352)。对于得到的每个尺寸的图像，取左、中、右三个位置的正方形图像(边长就是最短边的长度。对于纵向图像来说，则取上、中、下三个位置)，因此每个尺寸的图像得到3个正方形图像；然后再在每个正方形图像的4个crop顶点和中心位置处crop处224*224的图像，此外再加上将这个正方形图像缩放到224*224大小的图像，因此每个正方形图像得到6个224*224的图像；最后，再将所有得到的224*224的图像水平翻转。因此，每个图像可以得到4*3*6*2=144个224*224大小的图像。将这些图像分别输入神经网络进行分类，最后取平均，作为这个图像最终的分类结果。<br>而VGG中则使用的是3种尺寸，每个尺寸在5个位置处取正方形图像(四个顶点加中心？)，每个正方形图像crop出5个224*224大小的图像，最后水平翻转，即3*5*5*2=150。</p>
+<h3 id="对比实验"><a href="#对比实验" class="headerlink" title="对比实验"></a>对比实验</h3><h4 id="1-单尺度评估"><a href="#1-单尺度评估" class="headerlink" title="1. 单尺度评估"></a>1. 单尺度评估</h4><p>评估上面提出的几个网络模型，测试时，对于固定的S，取Q=S；对于可变的S，取<br>Q=0.5 ( S<sub>min</sub>+S<sub>max</sub>)。实验结果如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/9367127-0e7d95c219e2aa34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<ul>
+<li>A-LRN是指应用了LRN的A网络结构，由上面的实验结果可以看到，和A网络相比，性能并没有提升。所以后面所有的网络结构都不使用LRN技术。</li>
+<li>可以看到，分类误差随着网络深度的增加而降低。</li>
+<li>值得注意的是，B和C拥有相同的3*3的卷积层数，只是C有额外的1*1的卷积层，结果表明C的性能优于B，说明额外的非线性可以提升网络的性能。</li>
+<li>而C和D拥有相同的卷积层数，只是C有一些1*1的卷积层，而D只有3*3的卷积层，结果表明D的性能优于C，说明抓取空间局部信息也同样重要。</li>
+<li>训练时，使用可变的尺度(尺度抖动)比固定的尺度效果更好。<h4 id="2-多尺度评估"><a href="#2-多尺度评估" class="headerlink" title="2. 多尺度评估"></a>2. 多尺度评估</h4>多尺度估计，就是在测试时，将图像缩放到几个不同的尺度，即Q的取值有多个，再将每个尺度得到的结果取平均，得到最终的结果。对于固定的S，令Q={S-32，S，S+32}；对于可变的S，令Q={S<sub>min</sub>，0.5 ( S<sub>min</sub>+S<sub>max</sub>)，S<sub>max</sub>}。实验结果如下所示：</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/9367127-cd51ef854b248597.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>通过和单尺度的结果对比，可以发现在测试时使用多尺度(尺度抖动)，可以提升准确率。</p>
+<h4 id="3-multi-crop评估"><a href="#3-multi-crop评估" class="headerlink" title="3. multi-crop评估"></a>3. multi-crop评估</h4><p>比较了上文提到的dense和multi-crop两种方法的性能，此外，还将这两种方法结合起来，得到了更高的准确率。结果如下：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/9367127-0e36ff9f8c57aa9a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<ul>
+<li>multi-crop方法略微好于dense，<em>VGG论文中没有分析原因，个人理解，就像前面提到的那样，网络中包含很多pooling操作，导致dense的方法实际上每隔很多个像素才会进行crop，反而不如multi-crop采样出的图像更多。</em></li>
+<li>可以发现，将这两种方法相结合会在一定程度上提升性能。论文给出的解释是这两种方法有一定的互补性，互补性体现在哪里呢？答案在于<strong>它们在卷积层提取特征时padding方式不同</strong>：multi-crop每次crop出图像后分别放入网络，故所有crop出的图像在卷积层中的padding方式都是<strong>补0</strong> ；而dense则不同，除了在原图像边缘位置之外，其余的都相当于在卷积层padding时<strong>补的是它们附近的像素</strong>。<h4 id="4-多个网络结合"><a href="#4-多个网络结合" class="headerlink" title="4. 多个网络结合"></a>4. 多个网络结合</h4>论文还将训练的多个网络模型的结果相结合得到最终的分类结果，显然，这会提升分类的准确率以及稳定性，结果如下：</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/9367127-dac68d54268b0322.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h4 id="5-与其余方法相比较"><a href="#5-与其余方法相比较" class="headerlink" title="5. 与其余方法相比较"></a>5. 与其余方法相比较</h4><p><img src="http://upload-images.jianshu.io/upload_images/9367127-5a3c3780480fc380.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+</div><div class="tags"><a href="/tags/ILSVRC-classification/">ILSVRC classification</a><a href="/tags/Deep-Learning/">Deep Learning</a></div><div class="post-nav"><a class="next" href="/2018/05/30/AlexNet/">AlexNet论文笔记</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论（请确保 Disqus 可以正常加载）</button></div><script type="text/javascript">var disqus_config = function () {
+    this.page.url = 'https://black-og.github.io/2018/05/30/VGGNet/';
+    this.page.identifier = '2018/05/30/VGGNet/';
+    this.page.title = 'VGGNet论文笔记';
+  };</script><script type="text/javascript" id="disqus-lazy-load-script">$.ajax({
+url: 'https://disqus.com/next/config.json',
+timeout: 2500,
+type: 'GET',
+success: function(){
+  var d = document;
+  var s = d.createElement('script');
+  s.src = '//black-og.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', + new Date());
+  (d.head || d.body).appendChild(s);
+  $('.disqus_click_btn').css('display', 'none');
+},
+error: function() {
+  $('.disqus_click_btn').css('display', 'block');
+}
+});</script><script type="text/javascript" id="disqus-click-load">$('.btn_click_load').click(() => {  //click to load comments
+    (() => { // DON'T EDIT BELOW THIS LINE
+        var d = document;
+        var s = d.createElement('script');
+        s.src = '//black-og.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', + new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    $('.disqus_click_btn').css('display','none');
+});</script><script type="text/javascript" id="disqus-count-script">$(function() {
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', '//disqus.com/next/config.json', true);
+     xhr.timeout = 2500;
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4 && xhr.status === 200) {
+         $('.post-meta .post-comments-count').show();
+         var s = document.createElement('script');
+         s.id = 'dsq-count-scr';
+         s.src = 'https://black-og.disqus.com/count.js';
+         s.async = true;
+         (document.head || document.body).appendChild(s);
+       }
+     };
+     xhr.ontimeout = function () { xhr.abort(); };
+     xhr.send(null);
+   });
+</script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://black-og.github.io"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/ILSVRC-classification/" style="font-size: 15px;">ILSVRC classification</a> <a href="/tags/Deep-Learning/" style="font-size: 15px;">Deep Learning</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/30/VGGNet/">VGGNet论文笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/30/AlexNet/">AlexNet论文笔记</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-comment-o"> 最新评论</i></div><script type="text/javascript" src="//black-og.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">围城.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css"><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script><script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML" async></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
