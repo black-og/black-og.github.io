@@ -1,0 +1,74 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>深度学习中常见的激活函数 | 围城</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">深度学习中常见的激活函数</h1><a id="logo" href="/.">围城</a><p class="description">不忘初心</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 主页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">深度学习中常见的激活函数</h1><div class="post-meta">May 30, 2018<span> | </span><span class="category"><a href="/categories/深度学习/">深度学习</a></span></div><a class="disqus-comment-count" data-disqus-identifier="2018/05/30/active-function/" href="/2018/05/30/active-function/#disqus_thread"></a><div class="post-content"><p>更好的阅读体验请点击<a href="https://www.zybuluo.com/Blackog/note/987683" target="_blank" rel="noopener">深度学习中的激活函数</a></p>
+<h2 id="激活函数的作用"><a href="#激活函数的作用" class="headerlink" title="激活函数的作用"></a>激活函数的作用</h2><p>在介绍几种常见的激活函数之前，我们先来说一下激活函数的作用。不要被它的名字所迷惑，激活函数的主要作用并不是模仿人脑神经元的激活机制。神经网络中引入激活函数主要是为了处理非线性问题，也正是由于这个原因，<strong>激活函数必须是非线性函数。</strong>如果没有激活函数，无论神经网络有多少层，最终得到的也只能是线性模型。以三层的网络为例，没有激活函数的情况下，网络的输出为：  </p>
+<p><img src="http://upload-images.jianshu.io/upload_images/9367127-405ad98c83b6073b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>其中上标表示对应层的参数，将上式展开后得到：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/9367127-597f7cdcc18d7d8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>可以看到，最终得到的模型仍然是线性的，无论有多少层，道理和上面的例子一样。</p>
+<h2 id="几种常见的激活函数"><a href="#几种常见的激活函数" class="headerlink" title="几种常见的激活函数"></a>几种常见的激活函数</h2><h3 id="1-sigmoid函数"><a href="#1-sigmoid函数" class="headerlink" title="1. sigmoid函数"></a>1. sigmoid函数</h3><p>sigmoid函数曾经得到广泛的应用，它的函数形式以及图像如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/9367127-232b94281f7f3307.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>sigmoid函数有以下几个缺点：<br>(1) 饱和性。由上图可以看到，sigmoid函数图像的两端是处于饱和状态的，在这种状态下，导数近似于0，饱和性会<strong>杀死梯度</strong>，使得深度网络难以训练。为什么这么说？回想一下，BP算法中残差(或敏感度)的计算公式：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/9367127-378be5abe00d6df6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>当某个神经元处于饱和状态时，它的导数近似为0，那么此时这个神经元的残差也近似为0，而这个残差继续向前传递时，几乎不会对前面那些层的神经元产生什么影响了，基本上梯度到这里就无法继续向前反向传播了。因此，前面的参数无法得到有效的更新。<strong>即使神经元不处于饱和区，当网络层数很深的时候，使用sigmoid函数的网络也难以训练</strong>，sigmoid函数的导数图像如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/9367127-348e8a7caebd5f8d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>可以看到，它的导数最大值也只有0.25，而梯度进行反向传播时，有连乘操作，即使每个神经元的导数都能取到最大值，当网络的层数很深时，最后梯度消失现象也会比较严重。</p>
+<p>(2) 输出不是0均值。sigmoid的输出在0到1之间，如果神经元全是正数，那么权值更新时只能全为正或全为负，会造成锯齿形晃动，使得收敛速度变慢。但是如果更新权值时使用的是批量数据，那么权值的更新就会更准确、更稳定，一定程度上会缓和这个问题。<strong>因此，相比较而言，梯度消失是sigmoid激活函数最致命的缺点。</strong></p>
+<h2 id="2-tanh函数"><a href="#2-tanh函数" class="headerlink" title="2. tanh函数"></a>2. tanh函数</h2><p>tanh函数和sigmoid函数有些相似，tanh函数可以由sigmoid函数表示出来：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/9367127-14225dad0e3a04c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>它的函数图像为：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/9367127-d4e434593073ca8b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>可以看到，相比于sigmoid函数，tanh函数的输出是0均值的。但是它也存在sigmoid函数的另一个缺点，那就是饱和性。虽然比sigmoid函数好，但是同样难以训练。</p>
+<h2 id="3-ReLU函数"><a href="#3-ReLU函数" class="headerlink" title="3. ReLU函数"></a>3. ReLU函数</h2><p>ReLU函数(Rectified Linear Units)是近几年很受欢迎的一种激活函数。它的函数表达式为：<em>max(x,0)</em>，函数图像为：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/9367127-30b8d8fb4d274b45.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>ReLU函数有以下<strong>优点</strong>：<br>(1) 非饱和性。相比于之前的激活函数，ReLU函数很好的解决了梯度消失严重的问题。从上图可以看到，函数在大于0的部分，导数都为1。因此不会出现导数为0的情况，而且即使连乘，也不会损失梯度。</p>
+<p>(2) 便于计算。ReLU是分段线性的，相比于指数形式的函数，ReLU函数无论是前向还是反向传播时，计算起来都十分简单。AlexNet论文中曾通过实验比较了分别使用ReLU函数和tanh函数时，网络的收敛速度，得到的结果是使用ReLU函数时，收敛速度远远快于使用tanh函数时。</p>
+<p>(3) 稀疏性。比较这几种函数的图像，不难发现，在ReLU函数中，只有大于0的神经元才会被激活，其余都被置为0，而另外两种函数中，即使小于0，也会有部分神经元会被激活。这就使得使用ReLU函数时，会有更少的神经元被激活，使得网络更加稀疏。而稀疏性会带来很多优点，比如：<br>&emsp; (i) 解离出特征中最关键的部分，获得更稀疏的表示，可以使得模型更加鲁棒。试想一下，如果是密集表示的话，那么即使对于稍微有些不同的两个个体，也可能会得到完全截然不同的结果，过于敏感。<br>&emsp; (ii) 可变尺度的特征表示能表示更丰富的信息。每个样本所包含的信息可能有多有少，而通过激活神经元的数目变化，可以有效的表示它们所包含信息的丰富程度。激活的神经元越多，说明包含的信息越丰富，而激活的神经元越少，说明包含的信息越少。<em>而稀疏性就为激活神经元数目的变化提供了余地。反之，如果原本特征表示就很密集，那么所有样本的特征表示都是密集的，根本没有为被激活神经元的数目提供变化的余地。</em><br>&emsp; (iii) 稀疏的特征表示更易于线性可分。<br><em>(关于ReLU函数的优点，可以参考论文”Deep Sparse Rectifier Neural Networks”、”Rectified Linear Units Improve Restricted Boltzmann Machines”、”Rectifier Nonlinearities Improve Neural Network Acoustic Models”)</em></p>
+<p>当然，ReLU并不是完美的，它也有一些<strong>缺点</strong>：<br>(1) 和sigmoid函数一样，它的输出也不是0均值的。<br>(2) 可能会造成神经元”死亡”。当一个较大的梯度流过一个ReLU单元后，权值可能会更新的过猛。如果对于所有的输入，ReLU单元得到的结果总是0，然后它的导数也是0，导致权值无法更新，如此陷入恶性循环。相当于这个ReLU单元死掉了，不会被激活，也没有任何反向传播的作用。解决这个问题的一个办法是<strong>设置较小的学习率</strong>，避免权值更新过猛。<br>针对ReLU存在缺点，后来又有了许多改进的版本，比如LReLU、PReLU等等，这里不再进行详细介绍。</p>
+</div><div class="tags"><a href="/tags/Deep-Learning/">Deep Learning</a></div><div class="post-nav"><a class="next" href="/2018/05/30/VGGNet/">VGGNet论文笔记</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论（请确保 Disqus 可以正常加载）</button></div><script type="text/javascript">var disqus_config = function () {
+    this.page.url = 'https://black-og.github.io/2018/05/30/active-function/';
+    this.page.identifier = '2018/05/30/active-function/';
+    this.page.title = '深度学习中常见的激活函数';
+  };</script><script type="text/javascript" id="disqus-lazy-load-script">$.ajax({
+url: 'https://disqus.com/next/config.json',
+timeout: 2500,
+type: 'GET',
+success: function(){
+  var d = document;
+  var s = d.createElement('script');
+  s.src = '//black-og.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', + new Date());
+  (d.head || d.body).appendChild(s);
+  $('.disqus_click_btn').css('display', 'none');
+},
+error: function() {
+  $('.disqus_click_btn').css('display', 'block');
+}
+});</script><script type="text/javascript" id="disqus-click-load">$('.btn_click_load').click(() => {  //click to load comments
+    (() => { // DON'T EDIT BELOW THIS LINE
+        var d = document;
+        var s = d.createElement('script');
+        s.src = '//black-og.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', + new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    $('.disqus_click_btn').css('display','none');
+});</script><script type="text/javascript" id="disqus-count-script">$(function() {
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', '//disqus.com/next/config.json', true);
+     xhr.timeout = 2500;
+     xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4 && xhr.status === 200) {
+         $('.post-meta .post-comments-count').show();
+         var s = document.createElement('script');
+         s.id = 'dsq-count-scr';
+         s.src = 'https://black-og.disqus.com/count.js';
+         s.async = true;
+         (document.head || document.body).appendChild(s);
+       }
+     };
+     xhr.ontimeout = function () { xhr.abort(); };
+     xhr.send(null);
+   });
+</script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://black-og.github.io"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/Deep-Learning/" style="font-size: 15px;">Deep Learning</a> <a href="/tags/ILSVRC-classification/" style="font-size: 15px;">ILSVRC classification</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/30/active-function/">深度学习中常见的激活函数</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/30/VGGNet/">VGGNet论文笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/30/AlexNet/">AlexNet论文笔记</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-comment-o"> 最新评论</i></div><script type="text/javascript" src="//black-og.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">围城.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css"><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script><script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML" async></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
