@@ -3,9 +3,9 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 无常
-subtitle: 生命不息，奋斗不止
-description:
+title: 无常 
+subtitle:
+description: 生命不息，奋斗不止
 keywords:
 author: Qiang Guo
 language: zh-CN
@@ -74,7 +74,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-##theme: landscape
+#theme: landscape
 ##theme: maupassant
 theme: next
 
