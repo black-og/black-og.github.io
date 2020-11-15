@@ -5,7 +5,7 @@ tags: 不吐不快
 categories: 日常
 ---
 
-<blockquote class="blockquote-center">“未经他人苦，莫劝他人善”</blockquote>
+{% centerquote %}未经他人苦，莫劝他人善{% endcenterquote %}
 
 <!--more-->
 
