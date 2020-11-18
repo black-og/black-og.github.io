@@ -1,11 +1,21 @@
 ---
-title: About me
+title: About
 date: 2020-11-15 14:55:55
 type: about
 ---
 
-Computer vision engineer
+本博客建立于2020年11月，用于记录一些日常生活中的碎碎念和工作学习中的学习积累。
 
-Living in Beijing
+**关于我**
 
-Graduated from Beijing Institute of Technology
+现居北京
+
+一只弱弱的菜鸡
+
+计算机视觉算法工程师
+
+本科毕业于鲁东大学数学学院
+
+硕士毕业于北京理工大学计算机学院
+
+最后，谨以此域名纪念已经去世的外公。纵使命途多舛，始终善良如初，未能好好尽孝，深感遗憾。
