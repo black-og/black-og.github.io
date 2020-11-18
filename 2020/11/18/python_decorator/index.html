@@ -20,30 +20,33 @@
     var CONFIG = {"hostname":"black-og.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="生命不息，奋斗不止">
-<meta property="og:type" content="website">
-<meta property="og:title" content="无常">
-<meta property="og:url" content="https://black-og.github.io/index.html">
+  <meta name="description" content="python中的装饰器一般形式如下： 12345678910def funcA(func):    def funcC(a, b):        print(&amp;#x27;start in funcC&amp;#x27;)        funcB(a, b)        print(&amp;#x27;end in funcC&amp;#x27;)    return funcC  @funcAdef funcB(a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mmdetection中的python装饰器">
+<meta property="og:url" content="https://black-og.github.io/2020/11/18/python_decorator/index.html">
 <meta property="og:site_name" content="无常">
-<meta property="og:description" content="生命不息，奋斗不止">
+<meta property="og:description" content="python中的装饰器一般形式如下： 12345678910def funcA(func):    def funcC(a, b):        print(&amp;#x27;start in funcC&amp;#x27;)        funcB(a, b)        print(&amp;#x27;end in funcC&amp;#x27;)    return funcC  @funcAdef funcB(a">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-18T15:13:11.000Z">
+<meta property="article:modified_time" content="2020-11-18T15:37:39.805Z">
 <meta property="article:author" content="Qiang Guo">
+<meta property="article:tag" content="解惑">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://black-og.github.io/">
+<link rel="canonical" href="https://black-og.github.io/2020/11/18/python_decorator/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>无常</title>
+  <title>mmdetection中的python装饰器 | 无常</title>
   
 
 
@@ -157,84 +160,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://black-og.github.io/2020/11/18/problem-blog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/1.jpg">
-      <meta itemprop="name" content="Qiang Guo">
-      <meta itemprop="description" content="生命不息，奋斗不止">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="无常">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/18/problem-blog/" class="post-title-link" itemprop="url">搭建和发布博客中的一些问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-11-18 23:38:36 / 修改时间：23:45:50" itemprop="dateCreated datePublished" datetime="2020-11-18T23:38:36+08:00">2020-11-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%B8%A9%E5%9D%91%E6%8C%87%E5%8D%97/" itemprop="url" rel="index"><span itemprop="name">踩坑指南</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
 
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>记录博客搭建和发布过程中遇到的一些问题，包括但不仅限于hexo、git和markdown等方面，持续更新……</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/11/18/problem-blog/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -250,10 +179,9 @@
       <meta itemprop="name" content="无常">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/18/python_decorator/" class="post-title-link" itemprop="url">mmdetection中的python装饰器</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          mmdetection中的python装饰器
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -286,111 +214,71 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>python中的装饰器一般形式如下：</p>
+        <p>python中的装饰器一般形式如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">funcA</span>(<span class="params">func</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">funcC</span>(<span class="params">a, b</span>):</span></span><br><span class="line">        print(<span class="string">&#x27;start in funcC&#x27;</span>)</span><br><span class="line">        funcB(a, b)</span><br><span class="line">        print(<span class="string">&#x27;end in funcC&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> funcC</span><br><span class="line">  </span><br><span class="line"><span class="meta">@funcA</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">funcB</span>(<span class="params">a, b</span>):</span></span><br><span class="line">    print(<span class="string">&#x27;in funcB&#x27;</span>)</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/11/18/python_decorator/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
+
+<a id="more"></a>
+
+<p>当执行<code>funcB(a, b)</code>时，如果没有装饰器，运行结果为<code>in funcB</code>。而若像上面一样使用装饰器后运行结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">start in funcC</span><br><span class="line">in funcB</span><br><span class="line">end in funcC</span><br></pre></td></tr></table></figure>
+
+<p>这是因为使用装饰器时，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@funcA</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">funcB</span>(<span class="params">a, b</span>):</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>相当于<code>funcB=funcA(funcB)</code></strong> 即<code>funcB=funcC</code>，因此执行<code>funcB(a, b)</code>时变成了执行<code>funcC(a, b)</code>，因此得到了上面的结果。</p>
+<p>上面是装饰器的常见用法，今天在看mmdection相关代码时，发现它使用了另外一种形式，乍一看有点疑惑，实际上套入上面的套路后也不难理解。具体地，mmdetectino中使用了如下形式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">funcA</span>():</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">funcC</span>(<span class="params">func</span>):</span></span><br><span class="line">        print(<span class="string">&#x27;start in funcC&#x27;</span>)</span><br><span class="line">        func()</span><br><span class="line">        print(<span class="string">&#x27;end in funcC&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> funcC</span><br><span class="line">  </span><br><span class="line"><span class="meta">@funcA()</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">funcB</span>():</span></span><br><span class="line">    print(<span class="string">&#x27;in funcB&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>以上代码是对mmdetection相关代码的抽象，仅保留了使用形式。相比于第一种形式，主要有三点不同：</p>
+<ul>
+<li><p><code>@funcA</code>变为了<code>@funcA()</code></p>
+</li>
+<li><p><code>def funcA(func)</code>变为了<code>def funcA()</code>，参数没了</p>
+</li>
+<li><p><code>def funcC(a, b)</code>变为了<code>def funcC(func)</code>，即原本和<code>funcB</code>对应的参数列表没了，转而变为接受一个函数变量。    </p>
+</li>
+</ul>
+<p>回想之前提到的装饰器的使用套路：</p>
+<blockquote>
+<p>这是因为使用装饰器时，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@funcA</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">funcB</span>(<span class="params">a, b</span>):</span></span><br></pre></td></tr></table></figure>
+
+<p>相当于<code>funcB=funcA(funcB)</code></p>
+</blockquote>
+<p>同样的，mmdetection使用形式下，相当于发生了：<code>funcB=funcA()(funcB)</code>，可以看作两步：第一步执行了<code>funcA()</code>返回<code>funcC</code>，这也是为什么会导致第二点不同，此时不需要将<code>funcB</code>作为实参传递给<code>funcA</code>了，只是纯粹调用了<code>funcA()</code>，所以<code>funcA</code>可以有自己的参数列表，和<code>funcB</code>无关；第一步以后得到<code>funcB=funcC(funcB)</code>，这也导致了第三点不同，即<code>funcC</code>必须接受一个函数变量作为实参，而不是像之前拥有和<code>funcB</code>相同的参数列表。</p>
+<p>最关键的是，在第一种形式下，只有显示调用<code>funcB()</code>才会实际执行；而第二种形式下，只要<code>import funcB</code>就会实际执行。因为第一种形式时<code>funcB=funcC</code>，只是进行了赋值；而第二种形式时<code>funcB=funcC(funcB)</code>，已经进行了函数调用。正是由于这种用法，在mmdetection中，不同的类在它被import进来的时候，就已经完成了注册。</p>
+<p>总结一下，关于装饰器的用法，其实牢记<code>@f1 def f2()</code>相当于<code>f2=f1(f2)</code>即可，不同形式直接套用该流程即可具体分析。</p>
+
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/%E8%A7%A3%E6%83%91/" rel="tag"># 解惑</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://black-og.github.io/2020/11/15/hello_shit/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/1.jpg">
-      <meta itemprop="name" content="Qiang Guo">
-      <meta itemprop="description" content="生命不息，奋斗不止">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="无常">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/15/hello_shit/" class="post-title-link" itemprop="url">Hello Shit</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-11-15 03:35:55 / 修改时间：15:11:05" itemprop="dateCreated datePublished" datetime="2020-11-15T03:35:55+08:00">2020-11-15</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%97%A5%E5%B8%B8/" itemprop="url" rel="index"><span itemprop="name">日常</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote class="blockquote-center">
-            <i class="fa fa-quote-left"></i>
-            <p>未经他人苦，莫劝他人善</p>
-
-            <i class="fa fa-quote-right"></i>
-          </blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/11/15/hello_shit/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/15/hello_shit/" rel="prev" title="Hello Shit">
+      <i class="fa fa-chevron-left"></i> Hello Shit
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/18/problem-blog/" rel="next" title="搭建和发布博客中的一些问题">
+      搭建和发布博客中的一些问题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
